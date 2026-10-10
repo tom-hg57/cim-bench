@@ -62,10 +62,15 @@ podman build -f "$TOOL_DOCKERFILE" -t "cim-bench/${TOOL}:latest" .
 # Replace hyphens with underscores in tool name for file paths
 TOOL_UNDERSCORE=$(echo "$TOOL" | tr '-' '_')
 
+BASE_TOOL="${TOOL_UNDERSCORE}"
+if [[ "${TOOL_UNDERSCORE}" == libcimpp* ]]; then
+    BASE_TOOL="libcimpp"
+fi
+
 # Auto-detect benchmark file naming convention
 # Some tools use docker_* prefix, others don't - check which exists
-BENCHMARK_FILE="${TOOL_UNDERSCORE}_${DATASET}_benchmark.py"
-DOCKER_BENCHMARK_FILE="docker_${TOOL_UNDERSCORE}_${DATASET}_benchmark.py"
+BENCHMARK_FILE="${BASE_TOOL}_${DATASET}_benchmark.py"
+DOCKER_BENCHMARK_FILE="docker_${BASE_TOOL}_${DATASET}_benchmark.py"
 
 if [ -f "benchmarks/$DOCKER_BENCHMARK_FILE" ]; then
     BENCHMARK_FILE="$DOCKER_BENCHMARK_FILE"
@@ -79,11 +84,11 @@ else
     exit 1
 fi
 
-OUTPUT_FILE="${RESULTS_DIR}/${TOOL_UNDERSCORE}_${DATASET}_benchmark.json"
+OUTPUT_FILE="${BASE_TOOL}_${DATASET}_benchmark.json"
 
 echo ""
 echo "Running benchmark: $BENCHMARK_FILE"
-echo "Output: $OUTPUT_FILE"
+echo "Output: ${RESULTS_DIR}/${OUTPUT_FILE}"
 echo ""
 
 # Source dirs mounted over the copies baked into the images, so code
@@ -96,7 +101,7 @@ if podman run --rm \
     -v "$(pwd)/temp:/benchmarks/temp:z" \
     -v "$(pwd)/${RESULTS_DIR}:/output:z" \
     "cim-bench/${TOOL}:latest" \
-    pytest "$BENCHMARK_FILE" --benchmark-only --benchmark-json="/output/${TOOL_UNDERSCORE}_${DATASET}_benchmark.json"; then
+    pytest "$BENCHMARK_FILE" --benchmark-only --benchmark-json="/output/${OUTPUT_FILE}"; then
     STATUS="Benchmark complete!"
 else
     STATUS="⚠️  Benchmark had failing tests - see output above"
@@ -105,7 +110,7 @@ fi
 echo ""
 echo "================================"
 echo "$STATUS"
-echo "Results saved to: $OUTPUT_FILE"
+echo "Results saved to: ${RESULTS_DIR}/${OUTPUT_FILE}"
 echo "================================"
 
 # Refresh reports, comparison and graphs with all existing results included
