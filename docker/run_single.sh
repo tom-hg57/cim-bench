@@ -19,6 +19,7 @@ fi
 
 TOOL=$1
 DATASET=$2
+RESULTS_DIR="results-docker"
 REBUILD=false
 [ "$3" = "--rebuild" ] && REBUILD=true
 
@@ -36,7 +37,7 @@ if [ "$DATASET" != "svedala" ] && [ "$DATASET" != "realgrid" ]; then
 fi
 
 # Create output directory
-mkdir -p results-docker
+mkdir -p "${RESULTS_DIR}" benchmarks/parsers benchmarks/data benchmarks/temp temp
 
 echo "================================"
 echo "Building and running: $TOOL / $DATASET"
@@ -78,7 +79,7 @@ else
     exit 1
 fi
 
-OUTPUT_FILE="results-docker/${TOOL_UNDERSCORE}_${DATASET}_benchmark.json"
+OUTPUT_FILE="${RESULTS_DIR}/${TOOL_UNDERSCORE}_${DATASET}_benchmark.json"
 
 echo ""
 echo "Running benchmark: $BENCHMARK_FILE"
@@ -93,7 +94,7 @@ if podman run --rm \
     -v "$(pwd)/parsers:/benchmarks/parsers:ro,z" \
     -v "$(pwd)/data:/benchmarks/data:ro,z" \
     -v "$(pwd)/temp:/benchmarks/temp:z" \
-    -v "$(pwd)/results-docker:/output:z" \
+    -v "$(pwd)/${RESULTS_DIR}:/output:z" \
     "cim-bench/${TOOL}:latest" \
     pytest "$BENCHMARK_FILE" --benchmark-only --benchmark-json="/output/${TOOL_UNDERSCORE}_${DATASET}_benchmark.json"; then
     STATUS="Benchmark complete!"
@@ -108,4 +109,4 @@ echo "Results saved to: $OUTPUT_FILE"
 echo "================================"
 
 # Refresh reports, comparison and graphs with all existing results included
-./docker/generate_outputs.sh results-docker
+./docker/generate_outputs.sh "${RESULTS_DIR}"
