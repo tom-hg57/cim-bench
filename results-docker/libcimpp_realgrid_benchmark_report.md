@@ -4,23 +4,23 @@
 
 ## Environment
 
-- **CPU**: AMD Ryzen AI 9 HX 370 w/ Radeon 890M
-- **Cores**: 24
+- **CPU**: 11th Gen Intel(R) Core(TM) i7-11850H @ 2.50GHz
+- **Cores**: 4
 - **Python**: 3.14.6
-- **System**: Linux 7.1.3-100.fc43.x86_64
+- **System**: Linux 6.8.0-146-generic
 
 ## Results
 
 ### Libcimpp Load Realgrid
 
-- **Mean time**: 19.53 s
-- **Min time**: 19.41 s
-- **Max time**: 19.64 s
-- **Std dev**: 90.9 ms
+- **Mean time**: 4.86 s
+- **Min time**: 4.74 s
+- **Max time**: 4.95 s
+- **Std dev**: 83.6 ms
 - **Rounds**: 5
 
 **Metrics**:
-- Memory Mb: 133.8
+- Memory Mb: 132.3
 - Lines: 7561
 - Generators: 1347
 - Loads: 6687
@@ -28,7 +28,7 @@
 - Dataset Size Mb: 86.5
 - Cgmes Version: 2.4.15
 - Library: libcimpp
-- Library Version: 2.2.0
+- Library Version: 2.3.1
 - Library Dependencies: {}
 - Dataset: realgrid
 - Display Name: libcimpp
@@ -37,11 +37,11 @@
 
 ### Libcimpp Get Lines
 
-- **Mean time**: 5.4 ms
-- **Min time**: 3.5 ms
-- **Max time**: 13.6 ms
-- **Std dev**: 2.8 ms
-- **Rounds**: 79
+- **Mean time**: 12.6 ms
+- **Min time**: 11.4 ms
+- **Max time**: 14.3 ms
+- **Std dev**: 688.0 μs
+- **Rounds**: 73
 
 **Metrics**:
 - Line Count: 7561
@@ -53,11 +53,11 @@
 
 ### Libcimpp Get Generators
 
-- **Mean time**: 5.4 ms
-- **Min time**: 3.7 ms
-- **Max time**: 13.9 ms
-- **Std dev**: 2.7 ms
-- **Rounds**: 109
+- **Mean time**: 13.5 ms
+- **Min time**: 11.6 ms
+- **Max time**: 16.0 ms
+- **Std dev**: 1.1 ms
+- **Rounds**: 81
 
 **Metrics**:
 - Generator Count: 1347
@@ -69,11 +69,11 @@
 
 ### Libcimpp Get Loads
 
-- **Mean time**: 12.8 ms
-- **Min time**: 9.2 ms
-- **Max time**: 22.3 ms
-- **Std dev**: 4.5 ms
-- **Rounds**: 60
+- **Mean time**: 24.4 ms
+- **Min time**: 23.5 ms
+- **Max time**: 26.1 ms
+- **Std dev**: 547.7 μs
+- **Rounds**: 40
 
 **Metrics**:
 - Load Count: 6687
@@ -85,11 +85,11 @@
 
 ### Libcimpp Get Substations
 
-- **Mean time**: 5.4 ms
-- **Min time**: 3.6 ms
-- **Max time**: 13.9 ms
-- **Std dev**: 2.7 ms
-- **Rounds**: 107
+- **Mean time**: 13.4 ms
+- **Min time**: 12.2 ms
+- **Max time**: 15.6 ms
+- **Std dev**: 802.3 μs
+- **Rounds**: 73
 
 **Metrics**:
 - Substation Count: 4875
