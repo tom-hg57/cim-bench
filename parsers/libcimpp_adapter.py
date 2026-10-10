@@ -14,7 +14,7 @@ class LibCIMppAdapter(ParserAdapter):
 
     @classmethod
     def get_version(cls):
-        return "2.2.0"  # C++ lib, no Python package metadata
+        return "2.3.1"  # C++ lib, no Python package metadata
 
     @classmethod
     def get_display_name(cls):
